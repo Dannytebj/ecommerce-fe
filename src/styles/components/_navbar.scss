@@ -1,0 +1,28 @@
+.app-wrapper {
+  .main-content {
+    flex: 1 0 auto;
+  }
+  #sticky-footer {
+    flex-shrink: none;
+  }
+  .pad-brand {
+    margin-right: 30%;
+  }
+
+.search-area{
+  .input-group-text {
+    background-color: inherit;
+    border: none;
+  }
+  #search-input {
+    transform: scaleX(0);
+    opacity: 0;
+    transition: opacity .25s, transform .25s;
+    transform-origin: 0 0;
+      &.show {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+}
+}
