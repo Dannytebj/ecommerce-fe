@@ -1,0 +1,18 @@
+.side-nav-wrapper{
+  margin-top: 15px;
+  .list-group {
+    li:hover {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+  .dept {
+    background-color: transparent;
+    text-align: center;
+  }
+  .categories {
+    margin-top: 10px;
+  }
+}

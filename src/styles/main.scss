@@ -1,6 +1,9 @@
 @import './components/navbar';
 @import './components/homepage';
+@import './components/sidenav';
 
+html,
 body {
+  height: 100%;
 }
 

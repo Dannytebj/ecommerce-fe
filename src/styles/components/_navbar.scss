@@ -1,12 +1,15 @@
 .app-wrapper {
-  .main-content {
+  height: 100%;
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  #main-content {
     flex: 1 0 auto;
   }
   #sticky-footer {
     flex-shrink: none;
-  }
-  .pad-brand {
-    margin-right: 30%;
   }
 
 .search-area{

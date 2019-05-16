@@ -1,2 +1,5 @@
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const NEW_POST = 'NEW_POST';
+export const GET_DEPARTMENTS = 'GET_DEPARTMENTS';
+export const GET_DEPT_CATEGORIES = 'GET_DEPT_CATEGORIES';
+export const GET_PRODUCTS = 'GET_PRODUCTS';
