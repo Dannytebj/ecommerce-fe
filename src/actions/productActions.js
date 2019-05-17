@@ -1,4 +1,6 @@
-import { NEW_POST, GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS } from './types';
+import {
+   NEW_POST, GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCTS_IN_CATEGORY 
+  } from './types';
 
 const baseUrl='http://localhost:9000/api/v1';
 export const getDepartments = () => dispatch => {
@@ -34,7 +36,16 @@ export const getProducts = offset => dispatch => {
     )
 }
 
-
+export const getProuctsByCategory = (categoryId, offset) => dispatch => {
+  fetch(`${baseUrl}/products/inCategory/${categoryId}offset=${offset}`)
+    .then(res => res.json())
+    .then(products => 
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: products
+      })
+    )
+}
 
 export const createPosts = (postData) => dispatch => {
   fetch('https://jsonplaceholder.typicode.com/posts', {

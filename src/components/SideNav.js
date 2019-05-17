@@ -4,20 +4,29 @@ import ReactPaginate from 'react-paginate';
 // import PropTypes from 'prop-types';
 import Products from './Products';
 
-import { getDepartments, getCategoriesInDept, getProducts } from '../actions/productActions';
+import { getDepartments, getCategoriesInDept, getProducts, getProuctsByCategory } from '../actions/productActions';
 
 class SideNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
       offset: 0,
-      selectedDept: 0
+      selectedDept: 0,
+      selectedCategory: 0
     }
   }
   componentWillMount() {
     this.props.getDepartments();
     this.props.getProducts(this.state.offset);
   }
+  
+   /**
+   * Gets categories in department
+   * @param {number} department_id
+   * @param {} event
+   *
+   * @memberof SideNav
+   */
   getCategories = (event, department_id) => {
     event.preventDefault();
     this.setState({
@@ -25,6 +34,32 @@ class SideNav extends Component {
     });
     this.props.getCategoriesInDept(department_id);
   }
+
+  /**
+   * Gets products by category
+   * @param {number} category_id
+   * @param {} event
+   *
+   * @memberof SideNav
+   */
+  getCategoryProducts = (event, category_id) => {
+    event.preventDefault();
+    if (this.state.selectedCategory === category_id) {
+      this.setState({ selectedCategory: 0 });
+      this.props.getProducts(0);
+    } else {
+      this.setState({
+        selectedCategory: category_id
+      });
+      this.props.getProuctsByCategory(category_id);
+    }
+  }
+
+  /**
+   * Helper that handles pagination clicks
+   * @param {} data - pagination object
+   * @memberof SideNav
+   */
   handlePageClick = data => {
     let selected = data.selected;
     let offset = Math.ceil(selected * 20);
@@ -37,15 +72,13 @@ class SideNav extends Component {
       <li 
       className={(department_id === this.state.selectedDept) ? "list-group-item active"  : "list-group-item"}
       key={department_id}
-      onClick={(e) => this.getCategories(e, department_id)}
-      >
-      {name}
-      </li>
+      onClick={(e) => this.getCategories(e, department_id)} > {name} </li>
     ));
     const categories = this.props.deptCategories.map(({ category_id, name }) => (
       <li 
-      className={(category_id === 1) ? "list-group-item active"  : "list-group-item"}
+      className={(category_id === this.state.selectedCategory) ? "list-group-item active"  : "list-group-item"}
       key={category_id}
+      onClick={(e) => this.getCategoryProducts(e, category_id)}
       >
       {name}
       </li>
@@ -114,4 +147,10 @@ const mapStateToProps = state => ({
   products: state.products.fetchedProducts
 });
 
-export default connect(mapStateToProps, { getDepartments, getCategoriesInDept, getProducts })(SideNav);
+export default connect(
+    mapStateToProps, { 
+    getDepartments, 
+    getCategoriesInDept, 
+    getProducts, 
+    getProuctsByCategory 
+  })(SideNav);
