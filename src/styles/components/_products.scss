@@ -2,11 +2,36 @@
   margin-right: 0;
   margin-left: 0;
   .card {
-    margin: 5px;
+    margin: 6px;
+    transition: 0.3s;
+    // &:hover {
+    //   border: 1px solid rgba(51, 89, 223, 0.2);
+    //   box-shadow: 0 10px 30px 7px rgba(77, 14, 33, 0.08);
+    //   z-index: 2;
+    //   cursor: pointer;
+    // }
   }
+
+.product-details {
+  .modal-content {
+    display: flex;
+    flex-direction: row;
+    .product-img {
+      width: 30%;
+    }
+    .details {
+      width: 70%;
+      padding: 15px;
+    }
+  }
+}
+
 }
 @media (min-width: 992px) {
   .col-lg-4{
     max-width: 30.333333%;
+  }
+  .modal-content {
+    flex-direction: column;
   }
 }
