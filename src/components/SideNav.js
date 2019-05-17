@@ -4,7 +4,13 @@ import ReactPaginate from 'react-paginate';
 // import PropTypes from 'prop-types';
 import Products from './Products';
 
-import { getDepartments, getCategoriesInDept, getProducts, getProuctsByCategory } from '../actions/productActions';
+import {
+  getDepartments,
+  getCategoriesInDept,
+  getProducts,
+  getProuctsByCategory,
+  searchProducts 
+} from '../actions/productActions';
 
 class SideNav extends Component {
   constructor(props) {
@@ -12,7 +18,8 @@ class SideNav extends Component {
     this.state = {
       offset: 0,
       selectedDept: 0,
-      selectedCategory: 0
+      selectedCategory: 0,
+      searchTerm: ''
     }
   }
   componentWillMount() {
@@ -33,6 +40,22 @@ class SideNav extends Component {
       selectedDept: department_id
     });
     this.props.getCategoriesInDept(department_id);
+  }
+
+  getSearchTerm = (event) => {
+    event.preventDefault();
+    this.setState({
+      searchTerm: event.target.value
+    });
+  }
+
+  keyPress = (event) => {
+    event.target.value.trim();
+    if(event.keyCode === 13 && event.target.value !== ''){
+      this.props.searchProducts(event.target.value);
+   } else {
+     this.props.getProducts(0);
+   }
   }
 
   /**
@@ -90,7 +113,13 @@ class SideNav extends Component {
           <div className="col-md-3 col-sm-8">
             <div className="card">
               <div className="card-header">
-              <input type="text" className="form-control" placeholder="Search" />
+              <input 
+                type="text" 
+                className="form-control" 
+                placeholder="Search" 
+                onChange={this.getSearchTerm}
+                onKeyDown={this.keyPress}
+              />
               </div>
               <span className="card-header justify-content-center dept"><b>DEPARTMENTS</b></span>
               <ul className="list-group list-group-flush">
@@ -152,5 +181,6 @@ export default connect(
     getDepartments, 
     getCategoriesInDept, 
     getProducts, 
-    getProuctsByCategory 
+    getProuctsByCategory,
+    searchProducts 
   })(SideNav);

@@ -3,6 +3,8 @@ import {
   } from './types';
 
 const baseUrl='http://localhost:9000/api/v1';
+
+
 export const getDepartments = () => dispatch => {
   fetch(`${baseUrl}/departments`)
     .then(res => res.json())
@@ -37,7 +39,7 @@ export const getProducts = offset => dispatch => {
 }
 
 export const getProuctsByCategory = (categoryId, offset) => dispatch => {
-  fetch(`${baseUrl}/products/inCategory/${categoryId}offset=${offset}`)
+  fetch(`${baseUrl}/products/inCategory/${categoryId}?offset=${offset}`)
     .then(res => res.json())
     .then(products => 
       dispatch({
@@ -45,6 +47,12 @@ export const getProuctsByCategory = (categoryId, offset) => dispatch => {
         payload: products
       })
     )
+}
+
+export const searchProducts = searchTerm => dispatch => {
+  fetch(`${baseUrl}/products/search/?query_string=${searchTerm}`)
+    .then(res => res.json())
+    .then(products => dispatchGetProducts(dispatch, products))
 }
 
 export const createPosts = (postData) => dispatch => {
@@ -64,3 +72,9 @@ export const createPosts = (postData) => dispatch => {
   )
   
 }
+const dispatchGetProducts = (dispatch, products) => (
+  dispatch({
+    type: GET_PRODUCTS,
+    payload: products
+  })
+)
