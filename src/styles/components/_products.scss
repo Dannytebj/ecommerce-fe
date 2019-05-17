@@ -1,0 +1,12 @@
+.products-card {
+  margin-right: 0;
+  margin-left: 0;
+  .card {
+    margin: 5px;
+  }
+}
+@media (min-width: 992px) {
+  .col-lg-4{
+    max-width: 30.333333%;
+  }
+}

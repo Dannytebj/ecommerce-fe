@@ -34,6 +34,8 @@ export const getProducts = offset => dispatch => {
     )
 }
 
+
+
 export const createPosts = (postData) => dispatch => {
   fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',

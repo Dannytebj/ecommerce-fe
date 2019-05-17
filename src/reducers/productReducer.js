@@ -3,7 +3,7 @@ import {  GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS } from '../actions/
 const initialState = {
   departments: [],
   deptCategories: [],
-  fetchedProducts: []
+  fetchedProducts: {}
 }
 
 export default function(state = initialState, action) {
