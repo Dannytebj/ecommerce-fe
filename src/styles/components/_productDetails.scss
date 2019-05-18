@@ -3,6 +3,23 @@
   button:active {
     outline: none;
   }
+  .list-group {
+    li:hover {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+  .list-group-item {
+    padding: 0.55rem 1.15rem;
+  }
+  button.my-btn-1 {
+    margin-top: 15px;
+    border-radius: 30px;
+    padding: 10px;
+  }
+  
   .product-details {
     margin-top: 15px;
     .details-quantity {
@@ -11,6 +28,7 @@
         width: 60px;
         border-radius: 4px;
         border: 1px solid;
+        padding: 0 3px 0 10px;
       }
     }
   }
