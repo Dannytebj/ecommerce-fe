@@ -1,6 +1,8 @@
 import {
-   NEW_POST, GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCTS_IN_CATEGORY 
+   NEW_POST, GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCT_ATTRIBUTES,
+   GET_SELECTED_PRODUCT
   } from './types';
+import { bindActionCreators } from '../../../../../Library/Caches/typescript/3.4.3/node_modules/redux';
 
 const baseUrl='http://localhost:9000/api/v1';
 
@@ -55,6 +57,28 @@ export const searchProducts = searchTerm => dispatch => {
     .then(products => dispatchGetProducts(dispatch, products))
 }
 
+export const getSingleProduct = productId => dispatch => {
+  fetch(`${baseUrl}/products/${productId}`)
+    .then(res => res.json())
+    .then(product => 
+      dispatch({
+        type: GET_SELECTED_PRODUCT,
+        payload: product
+      })
+    )
+}
+
+export const getProductAtributes = product_id => dispatch => {
+  fetch(`${baseUrl}/attributes/inProduct/${product_id}`)
+    .then(res => res.json())
+    .then(attributes => 
+      dispatch({
+        type: GET_PRODUCT_ATTRIBUTES,
+        payload: attributes
+      })
+    )
+}
+
 export const createPosts = (postData) => dispatch => {
   fetch('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
@@ -78,3 +102,11 @@ const dispatchGetProducts = (dispatch, products) => (
     payload: products
   })
 )
+// export const dispatchSelectedProduct= product => dispatch => (
+//   dispatch({
+//     type: SELECTED_PRODUCT,
+//     payload: product
+//   })
+// )
+
+// const dispatchGetSingleProduct = ()

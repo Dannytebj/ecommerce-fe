@@ -21,9 +21,14 @@ class Products extends Component {
         <div className="card-body">
           <h5 className="card-title">{product.name}</h5>
           <p className="card-text">${product.price}</p>
-          <a href="#" className="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" >Buy</a>
+          <button
+            className="btn btn-primary" 
+            data-toggle="modal" 
+            data-target=".bd-example-modal-lg" 
+            onClick={(e) => this.props.selectProduct(e, product)} 
+          >Buy</button>
         </div>
-        <ProductDetails product={product} />
+        {/* <ProductDetails product={product} /> */}
       </div>
     )
     );

@@ -1,0 +1,22 @@
+.product-details-wrapper {
+  input:focus,
+  button:active {
+    outline: none;
+  }
+  .product-details {
+    margin-top: 15px;
+    .details-quantity {
+      flex-direction: column;
+      input {
+        width: 60px;
+        border-radius: 4px;
+        border: 1px solid;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 800px) {
+  .list-group-horizontal-md {
+    flex-direction: column;
+  }
+}

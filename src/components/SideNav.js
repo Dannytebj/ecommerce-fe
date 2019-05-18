@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-// import PropTypes from 'prop-types';
 import Products from './Products';
-
+import { withRouter } from 'react-router-dom';
 import {
   getDepartments,
   getCategoriesInDept,
   getProducts,
   getProuctsByCategory,
-  searchProducts 
+  searchProducts,
+  getProductAtributes,
 } from '../actions/productActions';
 
 class SideNav extends Component {
@@ -90,6 +90,12 @@ class SideNav extends Component {
     this.setState({ offset });
     this.props.getProducts(offset);
   };
+
+  selectProduct = (e, product) => {
+    e.preventDefault();
+    this.props.history.push(`/product-details/${product.product_id}`);
+  }
+
   render() {
     const departments = this.props.departments.map(({ department_id, name }) => (
       <li 
@@ -97,6 +103,7 @@ class SideNav extends Component {
       key={department_id}
       onClick={(e) => this.getCategories(e, department_id)} > {name} </li>
     ));
+
     const categories = this.props.deptCategories.map(({ category_id, name }) => (
       <li 
       className={(category_id === this.state.selectedCategory) ? "list-group-item active"  : "list-group-item"}
@@ -106,7 +113,9 @@ class SideNav extends Component {
       {name}
       </li>
     ));
+
     const pageCount = Math.ceil(this.props.products.count / 20);
+
     return (
       <div className="container-fluid side-nav-wrapper">
         <div className="row">
@@ -159,7 +168,7 @@ class SideNav extends Component {
                 />
               </div>
             </div>
-            {(this.props.products.rows) ? <Products productsObj={this.props.products} /> : ''}
+            {(this.props.products.rows) ? <Products productsObj={this.props.products} selectProduct={this.selectProduct} /> : ''}
             {this.props.children}
           </div>
         </div>
@@ -182,5 +191,5 @@ export default connect(
     getCategoriesInDept, 
     getProducts, 
     getProuctsByCategory,
-    searchProducts 
+    searchProducts,
   })(SideNav);
