@@ -17,6 +17,7 @@ class Products extends Component {
         <img 
           src={require(`../styles/asset/${product.image}`)} 
           className="card-img-top" alt="..."
+          onClick={(e) => this.props.viewProduct(e, product)} 
           />
         <div className="card-body">
           <h5 className="card-title">{product.name}</h5>
@@ -24,11 +25,10 @@ class Products extends Component {
           <button
             className="btn btn-primary" 
             data-toggle="modal" 
-            data-target=".bd-example-modal-lg" 
-            onClick={(e) => this.props.selectProduct(e, product)} 
-          >Buy</button>
+            data-target=".bd-example-modal-lg"
+            onClick={(e) => this.props.viewProduct(e, product)} 
+            >View Product</button>
         </div>
-        {/* <ProductDetails product={product} /> */}
       </div>
     )
     );

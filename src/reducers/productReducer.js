@@ -3,10 +3,14 @@ import {
   GET_DEPT_CATEGORIES,
   GET_PRODUCTS,
   GET_PRODUCT_ATTRIBUTES,
-  GET_SELECTED_PRODUCT
+  GET_SELECTED_PRODUCT,
+  GET_CART_ID,
+  SET_CART_ITEMS
 } from '../actions/types';
 
 const initialState = {
+  cartId: '',
+  cartItems: [],
   departments: [],
   deptCategories: [],
   fetchedProducts: {},
@@ -35,6 +39,14 @@ export default function(state = initialState, action) {
     case GET_SELECTED_PRODUCT:
       return {
         ...state, selectedProduct: action.payload
+      }
+    case GET_CART_ID:
+      return {
+        ...state, cartId: action.payload
+      }
+    case SET_CART_ITEMS:
+      return {
+        ...state, cartItems: action.payload
       }
     default:
       return state;

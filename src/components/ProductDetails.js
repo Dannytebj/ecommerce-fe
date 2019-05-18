@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getSingleProduct, getProductAtributes } from '../actions/productActions';
+import { getSingleProduct, getProductAtributes, createNewCart, addItemToCart } from '../actions/productActions';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -77,6 +77,26 @@ class ProductDetails extends Component {
     });
   }
 
+  addToCart = (e, product_id) => {
+    e.preventDefault();
+    const { selectedColor, selectedSize } = this.state;
+    const attributes = `${selectedSize}, ${selectedColor}`
+    const cartId = localStorage.getItem('cartId')|| '' ;
+    if (cartId !== '') {
+      // add Item to cart
+      this.props.addItemToCart(cartId, product_id, attributes)
+    } else {
+      this.props.createNewCart()
+      .then(res => res.json())
+      .then(({ cart_id }) => {
+        localStorage.setItem('cartId', cart_id);
+        this.props.addItemToCart(cart_id, product_id, attributes);
+        this.props.history.push('/');
+      })
+      .catch(error => console.log(error));
+    }
+  }
+
   render() {
     const { product, productAttribute } = this.state;
     let sizes;
@@ -121,7 +141,7 @@ class ProductDetails extends Component {
                 </div>
 
                 <div>
-                  <button className="btn btn-primary my-btn-1">Add to Cart</button>
+                  <button className="btn btn-primary my-btn-1" onClick={(e) => this.addToCart(e, product.product_id)}>Add to Cart</button>
                 </div>
               </div>
             </div>
@@ -138,5 +158,7 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getSingleProduct,
-  getProductAtributes
+  getProductAtributes,
+  createNewCart,
+  addItemToCart
 })(ProductDetails);

@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import Products from './Products';
-import { withRouter } from 'react-router-dom';
 import {
   getDepartments,
   getCategoriesInDept,
   getProducts,
   getProuctsByCategory,
   searchProducts,
-  getProductAtributes,
+  dispatchCartId,
+  getCartItems
 } from '../actions/productActions';
 
 class SideNav extends Component {
@@ -25,6 +25,11 @@ class SideNav extends Component {
   componentWillMount() {
     this.props.getDepartments();
     this.props.getProducts(this.state.offset);
+    const cartId = '' || localStorage.getItem('cartId');
+    if (cartId !== '') {
+      this.props.dispatchCartId(cartId);
+      this.props.getCartItems(cartId);
+    }
   }
   
    /**
@@ -91,10 +96,12 @@ class SideNav extends Component {
     this.props.getProducts(offset);
   };
 
-  selectProduct = (e, product) => {
+  viewProduct = (e, product) => {
     e.preventDefault();
     this.props.history.push(`/product-details/${product.product_id}`);
   }
+
+ 
 
   render() {
     const departments = this.props.departments.map(({ department_id, name }) => (
@@ -168,7 +175,7 @@ class SideNav extends Component {
                 />
               </div>
             </div>
-            {(this.props.products.rows) ? <Products productsObj={this.props.products} selectProduct={this.selectProduct} /> : ''}
+            {(this.props.products.rows) ? <Products productsObj={this.props.products} viewProduct={this.viewProduct} /> : ''}
             {this.props.children}
           </div>
         </div>
@@ -192,4 +199,6 @@ export default connect(
     getProducts, 
     getProuctsByCategory,
     searchProducts,
+    dispatchCartId,
+    getCartItems
   })(SideNav);
