@@ -5,7 +5,8 @@ import {
   GET_PRODUCT_ATTRIBUTES,
   GET_SELECTED_PRODUCT,
   GET_CART_ID,
-  SET_CART_ITEMS
+  SET_CART_ITEMS,
+  UPDATE_CART_QUANTITY
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,8 @@ export default function(state = initialState, action) {
       return {
         ...state, cartItems: action.payload
       }
+    // case UPDATE_CART_QUANTITY:
+    //   const updatedItem = state.cartItems.find(item => item.item_id === action.payload.itemId)
     default:
       return state;
   }

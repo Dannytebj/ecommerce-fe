@@ -1,11 +1,18 @@
 @import './components/navbar';
 @import './components/homepage';
-@import './components/sidenav';
 @import './components/products';
 @import './components/productDetails';
+@import './components/cartModal';
 
 html,
 body {
   height: 100%;
+  #toast-container {
+    .toast {
+      .toast-success {
+        background: green !important;
+      }
+    }
+  }
 }
 

@@ -1,107 +1,109 @@
+import toastr from 'toastr';
+import axios from 'axios';
 import {
    GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCT_ATTRIBUTES,
-  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS
+  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS, UPDATE_CART_QUANTITY
 } from './types';
 
 const baseUrl = 'http://localhost:9000/api/v1';
 
 
 export const getDepartments = () => dispatch => {
-  fetch(`${baseUrl}/departments`)
-    .then(res => res.json())
-    .then(departments =>
+  axios.get(`${baseUrl}/departments`)
+    .then(({ data }) =>
       dispatch({
         type: GET_DEPARTMENTS,
-        payload: departments
+        payload: data
       })
     )
 }
 
 export const getCategoriesInDept = deptId => dispatch => {
-  fetch(`${baseUrl}/categories/inDepartment/${deptId}`)
-    .then(res => res.json())
-    .then(categories =>
+  axios.get(`${baseUrl}/categories/inDepartment/${deptId}`)
+    .then(({ data }) =>
       dispatch({
         type: GET_DEPT_CATEGORIES,
-        payload: categories
+        payload: data
       })
     )
 };
 
 export const getProducts = offset => dispatch => {
-  fetch(`${baseUrl}/products?offset=${offset}`)
-    .then(res => res.json())
-    .then(products =>
+  axios.get(`${baseUrl}/products?offset=${offset}`)
+    .then(({ data }) =>
       dispatch({
         type: GET_PRODUCTS,
-        payload: products
+        payload: data
       })
     )
 }
 
 export const getProuctsByCategory = (categoryId, offset) => dispatch => {
-  fetch(`${baseUrl}/products/inCategory/${categoryId}?offset=${offset}`)
-    .then(res => res.json())
-    .then(products =>
+  const offsett = offset || 0;
+  axios.get(`${baseUrl}/products/inCategory/${categoryId}?offset=${offsett}`)
+    .then(({ data }) =>
       dispatch({
         type: GET_PRODUCTS,
-        payload: products
+        payload: data
       })
     )
 }
 
 export const searchProducts = searchTerm => dispatch => {
-  fetch(`${baseUrl}/products/search/?query_string=${searchTerm}`)
-    .then(res => res.json())
-    .then(products => dispatchGetProducts(dispatch, products))
+  axios.get(`${baseUrl}/products/search/?query_string=${searchTerm}`)
+    .then(({ data }) => dispatchGetProducts(dispatch, data))
 }
 
 export const getSingleProduct = productId => dispatch => {
-  fetch(`${baseUrl}/products/${productId}`)
-    .then(res => res.json())
-    .then(product =>
+  axios.get(`${baseUrl}/products/${productId}`)
+    .then(({ data }) =>
       dispatch({
         type: GET_SELECTED_PRODUCT,
-        payload: product
+        payload: data
       })
     )
 }
 
 export const getProductAtributes = product_id => dispatch => {
-  fetch(`${baseUrl}/attributes/inProduct/${product_id}`)
-    .then(res => res.json())
-    .then(attributes =>
+  axios.get(`${baseUrl}/attributes/inProduct/${product_id}`)
+    .then(({ data }) =>
       dispatch({
         type: GET_PRODUCT_ATTRIBUTES,
-        payload: attributes
+        payload: data
       })
     )
 }
 
 export const createNewCart = () => dispatch => (
-  fetch(`${baseUrl}/shoppingcart/generateUniqueId`)
+  axios.get(`${baseUrl}/shoppingcart/generateUniqueId`)
 );
 
 export const addItemToCart = (cart_id, product_id, attributes) => dispatch => {
-  fetch(`${baseUrl}/shoppingcart/add`, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      cart_id,
-      product_id,
-      attributes
-    })
-  })
-    .then(res => res.json())
-    .then(cartItems => dispatchSetCartItems(dispatch, cartItems))
+  axios.post(`${baseUrl}/shoppingcart/add`, { cart_id, product_id, attributes })
+    .then(({ data }) => dispatchSetCartItems(dispatch, data))
 }
 
+export const updateCartItem = (item_id, quantity) => dispatch => {
+  axios.put(`${baseUrl}/shoppingcart/update/${item_id}`, { quantity })
+    .then(({ data }) => {
+      dispatchSetCartItems(dispatch, data);
+      // sendSuccessToast("update cart");
+    })
+}
+
+export const updateCartQuantity = (quantity, itemId) => dispatch => (
+  dispatch({
+    type: UPDATE_CART_QUANTITY,
+    payload: {
+      quantity,
+      itemId
+    }
+  })
+)
+
 export const getCartItems = cart_id => dispatch => (
-  fetch(`${baseUrl}/shoppingcart/${cart_id}`)
-    .then(res => res.json())
-    .then(items => dispatchSetCartItems(dispatch, items))
+  axios.get(`${baseUrl}/shoppingcart/${cart_id}`)
+    .then(({ data }) => dispatchSetCartItems(dispatch, data ))
 );
 
 const dispatchGetProducts = (dispatch, products) => (
@@ -125,20 +127,6 @@ export const dispatchCartId = (cartId) => dispatch => (
   })
 );
 
-// export const createPosts = (postData) => dispatch => {
-//   fetch('https://jsonplaceholder.typicode.com/posts', {
-//     method: 'POST',
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     body: JSON.stringify(postData)
-//   })
-//   .then(res => res.json())
-//   .then(post =>
-//     dispatch({
-//       type: NEW_POST,
-//       payload: post
-//     })
-//   )
+// const sendSuccessToast = action => toastr.success(`${action} was successful`);
 
-// }
+
