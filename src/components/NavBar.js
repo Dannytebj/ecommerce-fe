@@ -62,7 +62,7 @@ class NavBar extends React.Component {
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
             {(username !== '') ? <small className="text-muted user-name">{username}</small> : 
-              <div class="auth-buttons nav-item">
+              <div className="auth-buttons nav-item">
                 <button className="sign-up-button" value="SignUp" onClick={this.openModal}>Sign Up</button>
                 <button className="sign-in-button" value="SignIn" onClick={this.openModal}>Sign In</button>
               </div>}

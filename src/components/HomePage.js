@@ -9,7 +9,8 @@ import {
   getProuctsByCategory,
   searchProducts,
   dispatchCartId,
-  getCartItems
+  getCartItems,
+  getTotalCost
 } from '../actions/productActions';
 
 class HomePage extends Component {
@@ -29,6 +30,7 @@ class HomePage extends Component {
     if (cartId !== '') {
       this.props.dispatchCartId(cartId);
       this.props.getCartItems(cartId);
+      this.props.getTotalCost(cartId);
     }
   }
   
@@ -199,5 +201,6 @@ export default connect(
     getProuctsByCategory,
     searchProducts,
     dispatchCartId,
-    getCartItems
+    getCartItems,
+    getTotalCost
   })(HomePage);

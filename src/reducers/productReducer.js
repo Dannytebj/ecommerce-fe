@@ -6,11 +6,13 @@ import {
   GET_SELECTED_PRODUCT,
   GET_CART_ID,
   SET_CART_ITEMS,
-  UPDATE_CART_QUANTITY
+  UPDATE_CART_QUANTITY,
+  GET_TOTAL_COST
 } from '../actions/types';
 
 const initialState = {
   cartId: '',
+  totalCost: '',
   cartItems: [],
   departments: [],
   deptCategories: [],
@@ -49,8 +51,10 @@ export default function(state = initialState, action) {
       return {
         ...state, cartItems: action.payload
       }
-    // case UPDATE_CART_QUANTITY:
-    //   const updatedItem = state.cartItems.find(item => item.item_id === action.payload.itemId)
+    case GET_TOTAL_COST:
+      return {
+        ...state, totalCost:action.payload
+      }
     default:
       return state;
   }

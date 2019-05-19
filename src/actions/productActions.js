@@ -2,7 +2,7 @@ import toastr from 'toastr';
 import axios from 'axios';
 import {
    GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCT_ATTRIBUTES,
-  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS, UPDATE_CART_QUANTITY
+  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS, UPDATE_CART_QUANTITY,GET_TOTAL_COST
 } from './types';
 
 const baseUrl = 'http://localhost:9000/api/v1';
@@ -15,7 +15,7 @@ export const getDepartments = () => dispatch => {
         type: GET_DEPARTMENTS,
         payload: data
       })
-    )
+    ).catch(error => catchAllErrors(error))
 }
 
 export const getCategoriesInDept = deptId => dispatch => {
@@ -26,6 +26,7 @@ export const getCategoriesInDept = deptId => dispatch => {
         payload: data
       })
     )
+    .catch(error => catchAllErrors(error))
 };
 
 export const getProducts = offset => dispatch => {
@@ -36,6 +37,7 @@ export const getProducts = offset => dispatch => {
         payload: data
       })
     )
+    .catch(error => catchAllErrors(error))
 }
 
 export const getProuctsByCategory = (categoryId, offset) => dispatch => {
@@ -47,11 +49,13 @@ export const getProuctsByCategory = (categoryId, offset) => dispatch => {
         payload: data
       })
     )
+    .catch(error => catchAllErrors(error))
 }
 
 export const searchProducts = searchTerm => dispatch => {
   axios.get(`${baseUrl}/products/search/?query_string=${searchTerm}`)
     .then(({ data }) => dispatchGetProducts(dispatch, data))
+    .catch(error => catchAllErrors(error))
 }
 
 export const getSingleProduct = productId => dispatch => {
@@ -61,7 +65,7 @@ export const getSingleProduct = productId => dispatch => {
         type: GET_SELECTED_PRODUCT,
         payload: data
       })
-    )
+    ).catch(error => catchAllErrors(error))
 }
 
 export const getProductAtributes = product_id => dispatch => {
@@ -71,7 +75,7 @@ export const getProductAtributes = product_id => dispatch => {
         type: GET_PRODUCT_ATTRIBUTES,
         payload: data
       })
-    )
+    ).catch(error => catchAllErrors(error))
 }
 
 export const createNewCart = () => dispatch => (
@@ -87,8 +91,8 @@ export const updateCartItem = (item_id, quantity) => dispatch => {
   axios.put(`${baseUrl}/shoppingcart/update/${item_id}`, { quantity })
     .then(({ data }) => {
       dispatchSetCartItems(dispatch, data);
-      // sendSuccessToast("update cart");
     })
+    .catch(error => catchAllErrors(error))
 }
 
 export const updateCartQuantity = (quantity, itemId) => dispatch => (
@@ -104,7 +108,19 @@ export const updateCartQuantity = (quantity, itemId) => dispatch => (
 export const getCartItems = cart_id => dispatch => (
   axios.get(`${baseUrl}/shoppingcart/${cart_id}`)
     .then(({ data }) => dispatchSetCartItems(dispatch, data ))
+    .catch(error => catchAllErrors(error))
 );
+
+export const getTotalCost = cart_id => dispatch => {
+  axios.get(`${baseUrl}/shoppingcart/totalAmount/${cart_id}`)
+    .then(({ data }) => {
+      console.log(data);
+      dispatch({
+        type: GET_TOTAL_COST,
+        payload: data.total_amount
+      })
+    }).catch(error => catchAllErrors(error));
+}
 
 const dispatchGetProducts = (dispatch, products) => (
   dispatch({
@@ -126,6 +142,9 @@ export const dispatchCartId = (cartId) => dispatch => (
     payload: cartId
   })
 );
+const catchAllErrors = (error) => {
+  toastr.error(error);
+}
 
 // const sendSuccessToast = action => toastr.success(`${action} was successful`);
 

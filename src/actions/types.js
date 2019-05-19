@@ -15,3 +15,4 @@ export const AUTH_FORM_INPUTS = "AUTH_FORM_INPUTS";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const GET_TOTAL_COST = "GET_TOTAL_COST";

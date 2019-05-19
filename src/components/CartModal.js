@@ -13,7 +13,6 @@ class CartModal extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps) {
-      console.log(nextProps, "Cart")
       this.setState({
         cartItems: nextProps.cartItems
       })
@@ -52,7 +51,7 @@ class CartModal extends Component {
             <input type="number" min={1} value={item.quantity} onChange={(e) => this.handleChange(e, item.item_id)} />
           </div>
           <div className="custom-col-2">
-            ${ Number(item.price) * item.quantity }
+            ${ (Number(item.price) * item.quantity).toFixed(2) }
           </div>
           <div className="custom-col-1 actions-col">
             <i className="fas fa-times-circle" onClick={(e) => this.removeItemFromCart(e, item.item_id)}></i>
@@ -88,6 +87,7 @@ class CartModal extends Component {
                     {(this.props.cartItems.length > 0) ? items : 'Empty cart :('}
                   </div>
                 </div>
+                <div className="total-cost">{(this.props.totalCost !== '') ? <h4> Total cost : ${this.props.totalCost}</h4> : '' }</div>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -101,5 +101,6 @@ class CartModal extends Component {
   }
 }
 const mapStateToProps = state => ({
+  totalCost: state.products.totalCost
 });
 export default connect(mapStateToProps, { updateCartItem })(CartModal);

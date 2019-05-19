@@ -11,6 +11,11 @@ body {
   .user-name {
     padding: 10px;
   }
+  .total-cost {
+    display: flex;
+    justify-content: flex-end;
+    color: grey;
+  }
   .page-item.active{
     .page-link {
       z-index: 0;
