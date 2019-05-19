@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateCartItem } from '../actions/productActions';
+import { updateCartItem, deleteFromCart, getCartItems } from '../actions/productActions';
 
 class CartModal extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class CartModal extends Component {
   }
   removeItemFromCart(e, itemId) {
     e.preventDefault();
-
+    this.props.deleteFromCart(itemId);
+    this.props.getCartItems(localStorage.getItem('cartId'))
   }
   render() {
     let items;
@@ -103,4 +104,4 @@ class CartModal extends Component {
 const mapStateToProps = state => ({
   totalCost: state.products.totalCost
 });
-export default connect(mapStateToProps, { updateCartItem })(CartModal);
+export default connect(mapStateToProps, { updateCartItem, deleteFromCart, getCartItems })(CartModal);

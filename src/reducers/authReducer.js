@@ -3,7 +3,6 @@ import  {
   SET_VALIDATION_ERRORS,
   RESET_AUTH_STORE,
   SIGN_UP_SUCCESS,
-  SIGN_UP_FAILURE,
   AUTH_SUCCESS
 } from '../actions/types';
 

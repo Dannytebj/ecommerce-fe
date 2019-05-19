@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ProductDetails from './ProductDetails';
 
 class Products extends Component {
   constructor(props) {

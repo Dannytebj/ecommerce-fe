@@ -2,10 +2,12 @@ import toastr from 'toastr';
 import axios from 'axios';
 import {
    GET_DEPARTMENTS, GET_DEPT_CATEGORIES, GET_PRODUCTS, GET_PRODUCT_ATTRIBUTES,
-  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS, UPDATE_CART_QUANTITY,GET_TOTAL_COST
+  GET_SELECTED_PRODUCT, GET_CART_ID, SET_CART_ITEMS, UPDATE_CART_QUANTITY,GET_TOTAL_COST,
+  DELETE_ITEM
 } from './types';
 
-const baseUrl = 'http://localhost:9000/api/v1';
+// const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 
 export const getDepartments = () => dispatch => {
@@ -114,12 +116,21 @@ export const getCartItems = cart_id => dispatch => (
 export const getTotalCost = cart_id => dispatch => {
   axios.get(`${baseUrl}/shoppingcart/totalAmount/${cart_id}`)
     .then(({ data }) => {
-      console.log(data);
       dispatch({
         type: GET_TOTAL_COST,
         payload: data.total_amount
       })
     }).catch(error => catchAllErrors(error));
+}
+export const deleteFromCart = item_id => dispatch => {
+  axios.delete(`${baseUrl}/shoppingcart/removeProduct/${item_id}`)
+    .then(() => {
+      toastr.success("Item removed successfully");
+      dispatch({
+        type: DELETE_ITEM,
+        payload: item_id
+      })
+    })
 }
 
 const dispatchGetProducts = (dispatch, products) => (
@@ -146,6 +157,5 @@ const catchAllErrors = (error) => {
   toastr.error(error);
 }
 
-// const sendSuccessToast = action => toastr.success(`${action} was successful`);
 
 

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import setAuthHeader from '../utils/setAuthHeader';
-import history from '../utils/history';
 import {
   AUTH_FORM_INPUTS,
   SET_VALIDATION_ERRORS,
@@ -10,7 +9,8 @@ import {
   AUTH_SUCCESS
 } from './types';
 
-const baseUrl = 'http://localhost:9000/api/v1';
+// const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 export const authFormInputs = ({ prop, value }) => ({
   type: AUTH_FORM_INPUTS,

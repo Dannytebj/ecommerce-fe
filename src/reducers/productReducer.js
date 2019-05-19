@@ -6,8 +6,8 @@ import {
   GET_SELECTED_PRODUCT,
   GET_CART_ID,
   SET_CART_ITEMS,
-  UPDATE_CART_QUANTITY,
-  GET_TOTAL_COST
+  GET_TOTAL_COST,
+  DELETE_ITEM
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +19,12 @@ const initialState = {
   fetchedProducts: {},
   selectedProduct: {},
   productAttributes: []
+}
+const findItem = (items, itemId) => {
+  const newCart = items.filter((item) => {
+    return !(item.item_id === itemId );
+  })
+  return newCart;
 }
 
 export default function(state = initialState, action) {
@@ -54,6 +60,11 @@ export default function(state = initialState, action) {
     case GET_TOTAL_COST:
       return {
         ...state, totalCost:action.payload
+      }
+    case DELETE_ITEM:
+      const cart = findItem(state.cartItems, action.payload);
+      return {
+        ...state, cartItems: cart
       }
     default:
       return state;
