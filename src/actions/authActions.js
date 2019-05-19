@@ -46,7 +46,6 @@ export function signIn({ email, password }) {
   return dispatch => axios.post(`${baseUrl}/customers/login`, { email, password })
 }
 export const getUser = () => dispatch => {
-  console.log("I dey here");
   axios.get(`${baseUrl}/customers`)
     .then(({ data }) => 
       dispatch({

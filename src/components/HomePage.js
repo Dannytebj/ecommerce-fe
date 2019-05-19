@@ -28,7 +28,7 @@ class HomePage extends Component {
     this.props.getDepartments();
     this.props.getProducts(this.state.offset);
     const cartId = '' || localStorage.getItem('cartId');
-    if (cartId !== '') {
+    if (cartId !== '' && cartId !== undefined) {
       this.props.dispatchCartId(cartId);
       this.props.getCartItems(cartId);
       this.props.getTotalCost(cartId);
