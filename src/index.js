@@ -9,7 +9,11 @@ import App from './App';
 import store from './store';
 import './styles/main.scss';
 import './index.css';
+import setAuthHeader from './utils/setAuthHeader';
 
+if (localStorage.jwtoken) {
+  setAuthHeader(localStorage.jwtoken);
+}
 ReactDOM.render(
   <Provider store={store}>
     <App />

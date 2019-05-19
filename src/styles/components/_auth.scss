@@ -1,0 +1,58 @@
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  .label-text {
+    margin-left: 10px;
+  }
+  .row {
+    padding: 7px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    .text-box {
+      width: 95%;
+      line-height: 2.5;
+      border-radius: 10px;
+      border: 1px solid #cccc;
+      margin-top: 10px;
+      outline: none;
+      padding: 0 5px 5px 25px;
+      font-size: 18px;
+      font-family: 'Lato', sans-serif;
+      &:focus {
+        border: 1px solid #a8ff78;
+      }
+
+    }
+    .has-error {
+      border: 1px solid red;
+    }
+    .text-muted {
+      font-size: 9px;
+      margin-left: 10px;
+    }
+  }
+
+  button {
+    background: #007bff;
+    border-radius: 25px;
+    flex: 1 1 auto;
+    color: white;
+    padding: 14px;
+    border: 1px solid #007bff;
+    width: 60%;
+    font-size: 16px;
+    align-self: center;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12),
+    0 2px 4px 0 rgba(0,0,0,0.08);
+    display: inline-block;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+}
