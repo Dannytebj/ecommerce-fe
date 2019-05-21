@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import TextBox from '../../utils/TextBox';
-import { authFormInputs, setValidationError, setUserData, displayError } from '../../actions/authActions';
+import { authFormInputs, setValidationError, setUserData, displayError, signUp, signIn } from '../../actions/authActions';
 import { signInValidator, signUpValidator } from '../../utils/validators';
 import toastr from 'toastr';
 
@@ -24,18 +24,11 @@ const propTypes = {
 class AuthForm extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.createUser = this.createUser.bind(this);
+    this.login = this.login.bind(this);
   }
 
-  onSubmit() {
-    if (this.props.isSigningUp) {
-      this.createUser();
-    } else {
-      this.login();
-    }
-  }
-
-  createUser() {
+  createUser(){
     const { isValid, errors } = signUpValidator(this.props);
     if (!isValid) {
       return this.props.setValidationError(errors);
@@ -44,18 +37,12 @@ class AuthForm extends Component {
 
   }
 
-  login() {
+  login(){
     const { isValid, errors } = signInValidator(this.props);
     if (!isValid) {
       return this.props.setValidationError(errors);
     }
-    this.props.signIn(this.props)
-      .then(({ data }) => {
-        this.props.setUserData(data)
-      })
-      .catch(({ response: { data: { error } } }) => {
-        toastr.error(error.message);
-      })
+    this.props.signIn(this.props);
   }
 
   render() {
@@ -102,7 +89,8 @@ class AuthForm extends Component {
             />
           ) : ''
         }
-        <button type="button" onClick={this.onSubmit}>{(this.props.isSigningUp) ? 'Create Account' : 'Sign In'}</button>
+        {(this.props.isSigningUp) ? <button type="button" onClick={this.createUser}>Create Account</button> :
+        <button type="button" onClick={this.login}>Sign In</button> }
       </div>
     );
   }
@@ -116,4 +104,10 @@ const mapStateToProps = state => {
   }
 }
 AuthForm.propTypes = propTypes;
-export default connect(mapStateToProps, { authFormInputs, setValidationError, setUserData, displayError })(AuthForm);
+export default connect(mapStateToProps, { 
+  authFormInputs,
+  setValidationError, 
+  setUserData,
+  displayError,
+  signUp,
+  signIn })(AuthForm);
