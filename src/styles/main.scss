@@ -8,6 +8,12 @@
 html,
 body {
   height: 100%;
+  button:active {
+    outline: none;
+  }
+  button:focus {
+    outline: none;
+  }
   .user-name {
     padding: 10px;
   }

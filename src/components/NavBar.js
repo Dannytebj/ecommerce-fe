@@ -17,7 +17,8 @@ class NavBar extends React.Component {
   }
 
   componentWillMount() {
-    if( localStorage.getItem('jwtoken') !== '') {
+    const token = localStorage.getItem('jwtoken');
+    if( token !== '' && token !==undefined ) {
       this.props.getUser();
     }
   }
