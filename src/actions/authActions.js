@@ -8,6 +8,7 @@ import {
   SIGN_UP_FAILURE,
   AUTH_SUCCESS
 } from './types';
+import toastr from 'toastr';
 
 // const baseUrl = 'http://localhost:9000/api/v1';
 const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
@@ -40,13 +41,15 @@ export function signUp(userData) {
     .then(({ data }) => setUserData(data))
     .catch((error) => {
       dispatch(error);
-    });
+    })
+    .catch(({ response: { data: { error } } }) => {
+      toastr.error(error.message);
+    })
 }
 export function signIn({ email, password }) {
   return dispatch => axios.post(`${baseUrl}/customers/login`, { email, password })
 }
 export const getUser = () => dispatch => {
-  console.log("I dey here");
   axios.get(`${baseUrl}/customers`)
     .then(({ data }) => 
       dispatch({
@@ -54,6 +57,10 @@ export const getUser = () => dispatch => {
         payload: data
       })
     )
+    .catch((error) => {
+    //  toastr.info("You'll need to sign in to checkout")
+    console.log(error);
+    });
 }
 
 export const setUserData = (data) => dispatch => {
@@ -64,6 +71,10 @@ export const setUserData = (data) => dispatch => {
       type: AUTH_SUCCESS,
       payload: data.customer.schema
     });
+  }
+
+  export const displayError = ( error ) => {
+    toastr.error(error.message)
   }
 
 

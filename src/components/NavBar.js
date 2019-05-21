@@ -17,10 +17,13 @@ class NavBar extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getUser();
+    const token = localStorage.getItem('jwtoken');
+    if( token !== '' && token !==undefined ) {
+      this.props.getUser();
+    }
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.name !== '') {
+    if (nextProps.user.name) {
       this.setState({
         isModalOpen: false,
         username: nextProps.user.name
@@ -78,10 +81,10 @@ class NavBar extends React.Component {
         </nav>
 
         <div id="main-container">
+        {this.props.children}
         <CartModal cartItems={this.props.cart} />
         <AuthModal isModalOpen={this.state.isModalOpen} closeModal={this.closeModal} isSigningUp= {this.state.isSigningUp} />
 
-          {this.props.children}
         </div>
         <footer id="sticky-footer" className="py-4 bg-dark text-white-50">
           <div className="container text-center">

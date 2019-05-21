@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classname from 'classnames';
 import TextBox from '../../utils/TextBox';
-import { authFormInputs, setValidationError, setUserData } from '../../actions/authActions';
+import { authFormInputs, setValidationError, setUserData, displayError } from '../../actions/authActions';
 import { signInValidator, signUpValidator } from '../../utils/validators';
+import toastr from 'toastr';
 
 const propTypes = {
   isSigningUp: PropTypes.bool,
@@ -51,6 +52,9 @@ class AuthForm extends Component {
     this.props.signIn(this.props)
       .then(({ data }) => {
         this.props.setUserData(data)
+      })
+      .catch(({ response: { data: { error } } }) => {
+        toastr.error(error.message);
       })
   }
 
@@ -112,4 +116,4 @@ const mapStateToProps = state => {
   }
 }
 AuthForm.propTypes = propTypes;
-export default connect(mapStateToProps, { authFormInputs, setValidationError, setUserData })(AuthForm);
+export default connect(mapStateToProps, { authFormInputs, setValidationError, setUserData, displayError })(AuthForm);

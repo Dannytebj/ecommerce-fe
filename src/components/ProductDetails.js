@@ -29,22 +29,21 @@ class ProductDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { match: { params: { productId } } } = this.props;
+    console.log("I enter here! @@@");
+
+    this.setState({
+      product: nextProps.product,
+      productAttribute: nextProps.productAttribute
+    })
     if (nextProps.cart.length > 0) {
       const item = nextProps.cart.find((product) => product.product_id === Number(productId));
       if (item !== undefined) {
         this.setState({
-          product: nextProps.product,
-          productAttribute: nextProps.productAttribute,
           itemInCart: true,
           quantity: item.quantity,
           itemId: item.item_id
         });
-      } else {
-        this.setState({
-          product: nextProps.product,
-          productAttribute: nextProps.productAttribute
-        })
-      }
+      } 
     }
   }
 
@@ -86,7 +85,7 @@ class ProductDetails extends Component {
     const { selectedColor, selectedSize, quantity, itemInCart, itemId } = this.state;
     const attributes = `${selectedSize}, ${selectedColor}`;
     const cartId = localStorage.getItem('cartId') || '';
-    if (cartId !== '') {
+    if (cartId !== '' && cartId !== undefined) {
       // If Item already in cart increase quantity
       if (!itemInCart) {
         // add Item to cart
@@ -100,10 +99,9 @@ class ProductDetails extends Component {
 
     } else {
       this.props.createNewCart()
-        .then(res => res.json())
-        .then(({ cart_id }) => {
-          localStorage.setItem('cartId', cart_id);
-          this.props.addItemToCart(cart_id, product_id, attributes);
+        .then(({ data }) => {
+          localStorage.setItem('cartId', data.cart_id);
+          this.props.addItemToCart(data.cart_id, product_id, attributes);
           this.props.history.push('/');
         })
         .catch(error => console.log(error));
@@ -142,7 +140,7 @@ class ProductDetails extends Component {
     }
     return (
       <div className="container-fluid product-details-wrapper">
-        {(productAttribute.length > 0) ? <div className="card mb-3 product-details" >
+        {(productAttribute.length > 0 && product.image !== undefined) ? <div className="card mb-3 product-details" >
           <div className="row no-gutters">
             <div className="col-md-3">
               <img src={require(`../styles/asset/${product.image}`)} className="card-img" alt="..." />
