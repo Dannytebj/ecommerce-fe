@@ -140,7 +140,7 @@ class ProductDetails extends Component {
     }
     return (
       <div className="container-fluid product-details-wrapper">
-        {(productAttribute.length > 0) ? <div className="card mb-3 product-details" >
+        {(productAttribute.length > 0 && product.image !== undefined) ? <div className="card mb-3 product-details" >
           <div className="row no-gutters">
             <div className="col-md-3">
               <img src={require(`../styles/asset/${product.image}`)} className="card-img" alt="..." />

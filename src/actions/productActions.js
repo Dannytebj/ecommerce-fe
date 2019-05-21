@@ -78,9 +78,7 @@ export const getProductAtributes = product_id => dispatch => {
         payload: data
       })
     )
-    .catch(({ response: { data: { error } } }) => {
-      toastr.error(error.message);
-    })
+    .catch(error => catchAllErrors(error));
 }
 
 export const createNewCart = () => dispatch => (
@@ -90,9 +88,7 @@ export const createNewCart = () => dispatch => (
 export const addItemToCart = (cart_id, product_id, attributes) => dispatch => {
   axios.post(`${baseUrl}/shoppingcart/add`, { cart_id, product_id, attributes })
     .then(({ data }) => dispatchSetCartItems(dispatch, data))
-    .catch(({ response: { data: { error } } }) => {
-      toastr.error(error.message);
-    })
+    .catch(error => catchAllErrors(error));
 }
 
 export const updateCartItem = (item_id, quantity) => dispatch => {
@@ -100,9 +96,7 @@ export const updateCartItem = (item_id, quantity) => dispatch => {
     .then(({ data }) => {
       dispatchSetCartItems(dispatch, data);
     })
-    .catch(({ response: { data: { error } } }) => {
-      toastr.error(error.message);
-    })
+    .catch(error => catchAllErrors(error));
 }
 
 export const updateCartQuantity = (quantity, itemId) => dispatch => (
@@ -118,9 +112,7 @@ export const updateCartQuantity = (quantity, itemId) => dispatch => (
 export const getCartItems = cart_id => dispatch => (
   axios.get(`${baseUrl}/shoppingcart/${cart_id}`)
     .then(({ data }) => dispatchSetCartItems(dispatch, data ))
-    .catch(({ response: { data: { error } } }) => {
-      toastr.error(error.message);
-    })
+    .catch(error => catchAllErrors(error))
 );
 
 export const getTotalCost = cart_id => dispatch => {

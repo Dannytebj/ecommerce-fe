@@ -58,8 +58,9 @@ export const getUser = () => dispatch => {
       })
     )
     .catch((error) => {
-      toastr.error(error.message);
-    })
+    //  toastr.info("You'll need to sign in to checkout")
+    console.log(error);
+    });
 }
 
 export const setUserData = (data) => dispatch => {
