@@ -6,7 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 
 export function signUpValidator(data) {
   let errors = {};
-  console.log(data)
   if (!validator.isEmail(data.email)){
     errors.email = 'Please provide a valid email';
   }
@@ -15,9 +14,6 @@ export function signUpValidator(data) {
   }
   if (validator.isEmpty(data.name)) {
     errors.name = 'Fullname field is required';
-  }
-  if (!validator.isAlpha(data.name)) {
-    errors.name = 'Fullname field can only be alphabets';
   }
   if (validator.isEmpty(data.password)) {
     errors.password = 'password field is required';

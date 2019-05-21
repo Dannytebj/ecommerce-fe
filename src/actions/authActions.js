@@ -36,18 +36,15 @@ export const handleSignUpFailure = (error) => ({
 });
 
 
-export function signUp(userData) {
-  return dispatch => axios.post(`${baseUrl}/customers`, userData)
-    .then(({ data }) => setUserData(data))
-    .catch((error) => {
-      dispatch(error);
-    })
-    .catch(({ response: { data: { error } } }) => {
-      toastr.error(error.message);
-    })
+export function signUp({ name, email, password }) {
+  return dispatch => axios.post(`${baseUrl}/customers`, { name, email, password })
+    .then(({ data }) => setUserData(data, dispatch))
+    .catch((error) => displayError(error));
 }
 export function signIn({ email, password }) {
   return dispatch => axios.post(`${baseUrl}/customers/login`, { email, password })
+    .then(({ data }) => setUserData(data, dispatch))
+    .catch((error) => displayError(error));
 }
 export const getUser = () => dispatch => {
   axios.get(`${baseUrl}/customers`)
@@ -63,7 +60,7 @@ export const getUser = () => dispatch => {
     });
 }
 
-export const setUserData = (data) => dispatch => {
+export const setUserData = (data, dispatch) => {
     localStorage.setItem('jwtoken', data.accessToken);
     localStorage.setItem('name', data.customer.schema.name);
     setAuthHeader(data.accessToken);
@@ -74,7 +71,11 @@ export const setUserData = (data) => dispatch => {
   }
 
   export const displayError = ( error ) => {
-    toastr.error(error.message)
+    if (error.response.data.error) {
+      toastr.error(error.response.data.error.message);
+    } else {
+      toastr.error('An error occurred while signing up');
+    }
   }
 
 
