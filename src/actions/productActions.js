@@ -161,8 +161,9 @@ const catchAllErrors = (error) => {
   if (error.message === 'Network Error') {
     toastr.error('An error occurred with your network');
   } else {
-    toastr.error(error.message);
-  } 
+    const errMsg = (error.response.data !== undefined) ? error.response.data.error.message : error.message
+    toastr.error(errMsg);
+  }
 }
 
 
