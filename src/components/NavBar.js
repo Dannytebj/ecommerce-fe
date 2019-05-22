@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CartModal from './CartModal';
 import AuthModal from './auth/AuthModal';
 import { resetAuthStore, getUser } from '../actions/authActions';
-import tokenValid from '../utils/checkTokenValidity';
+import verifyToken from '../utils/checkTokenValidity';
 
 
 class NavBar extends React.Component {
@@ -20,7 +20,7 @@ class NavBar extends React.Component {
   componentWillMount() {
     const token = localStorage.getItem('jwtoken');
     if( token !== '' && token !==undefined ) {
-      if (tokenValid(token)) {
+      if (verifyToken(token)) {
         this.props.getUser();
       } else {
         localStorage.removeItem('jwtoken');

@@ -14,6 +14,9 @@ body {
   button:focus {
     outline: none;
   }
+  .list-group-item.active{
+    z-index: 0;
+  }
   .user-name {
     padding: 10px;
   }
