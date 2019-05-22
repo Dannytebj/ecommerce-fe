@@ -132,7 +132,7 @@ export const deleteFromCart = item_id => dispatch => {
         type: DELETE_ITEM,
         payload: item_id
       })
-    })
+    }).catch(error => catchAllErrors(error));
 }
 
 const dispatchGetProducts = (dispatch, products) => (
@@ -155,8 +155,16 @@ export const dispatchCartId = (cartId) => dispatch => (
     payload: cartId
   })
 );
+
 const catchAllErrors = (error) => {
-  toastr.error(error);
+  toastr.options.preventDuplicates = true;
+  if (error) {
+      toastr.error('An error occurred');
+  } else if (error.response.data.error) {
+    toastr.error(error.response.data.error.message);
+  } else {
+    toastr.error(error);
+  }
 }
 
 

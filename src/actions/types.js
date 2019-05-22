@@ -17,3 +17,5 @@ export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const GET_TOTAL_COST = "GET_TOTAL_COST";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const LOADING = "LOADING";
+export const FINISH_LOADING = "FINISH_LOADING";

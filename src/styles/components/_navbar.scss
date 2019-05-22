@@ -4,6 +4,18 @@
   button:active {
     outline: none;
   }
+  .logged-in-user {
+    display: flex;
+    align-items: center;
+    .log-out {
+      background: #007bff;
+      margin-right: 5px;
+      padding: 5px;
+      border: 1px solid #007bff;
+      color: white;
+      border-radius: 4px;
+    }
+  }
   .dropdown-menu {
 
   }

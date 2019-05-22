@@ -6,7 +6,9 @@ import {
   RESET_AUTH_STORE,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
-  AUTH_SUCCESS
+  AUTH_SUCCESS,
+  LOADING,
+  FINISH_LOADING
 } from './types';
 import toastr from 'toastr';
 
@@ -35,7 +37,17 @@ export const handleSignUpFailure = (error) => ({
   payload: error
 });
 
+export const loading = () => dispatch => (
+  dispatch({
+    type: LOADING,
+  })
+)
 
+export const finishLoading = (dispatch)  => (
+  dispatch({
+    type: FINISH_LOADING,
+  })
+)
 export function signUp({ name, email, password }) {
   return dispatch => axios.post(`${baseUrl}/customers`, { name, email, password })
     .then(({ data }) => setUserData(data, dispatch))
@@ -47,17 +59,17 @@ export function signIn({ email, password }) {
     .catch((error) => displayError(error));
 }
 export const getUser = () => dispatch => {
+  loading(dispatch)
   axios.get(`${baseUrl}/customers`)
-    .then(({ data }) => 
+    .then(({ data }) => {
+      finishLoading(dispatch);
       dispatch({
         type: AUTH_SUCCESS,
         payload: data
       })
-    )
-    .catch((error) => {
-    //  toastr.info("You'll need to sign in to checkout")
-    console.log(error);
-    });
+    }
+    ).catch((error) => 
+    displayError(error));
 }
 
 export const setUserData = (data, dispatch) => {
@@ -71,10 +83,12 @@ export const setUserData = (data, dispatch) => {
   }
 
   export const displayError = ( error ) => {
-    if (error.response.data.error) {
+    if (error.message === 'Network Error') {
+      toastr.error('An error occurred with your network');
+    } else if(error.response.data.error) {
       toastr.error(error.response.data.error.message);
     } else {
-      toastr.error('An error occurred while signing up');
+      toastr.error('An error occurred')
     }
   }
 

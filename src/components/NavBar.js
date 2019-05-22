@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CartModal from './CartModal';
 import AuthModal from './auth/AuthModal';
 import { resetAuthStore, getUser } from '../actions/authActions';
+import tokenValid from '../utils/checkTokenValidity';
 
 
 class NavBar extends React.Component {
@@ -19,7 +20,12 @@ class NavBar extends React.Component {
   componentWillMount() {
     const token = localStorage.getItem('jwtoken');
     if( token !== '' && token !==undefined ) {
-      this.props.getUser();
+      if (tokenValid(token)) {
+        this.props.getUser();
+      } else {
+        localStorage.removeItem('jwtoken');
+        localStorage.removeItem('name');
+      }
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -27,6 +33,10 @@ class NavBar extends React.Component {
       this.setState({
         isModalOpen: false,
         username: nextProps.user.name
+      })
+    } else {
+      this.setState({
+        username: ''
       })
     }
   }
@@ -53,6 +63,13 @@ class NavBar extends React.Component {
     this.props.resetAuthStore();
   }
 
+  logOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('jwtoken');
+    localStorage.removeItem('name');
+    this.props.resetAuthStore();
+  }
+
   render() {
     const { username } = this.state;
     return (
@@ -64,7 +81,12 @@ class NavBar extends React.Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-            {(username !== '') ? <small className="text-muted user-name">{username}</small> : 
+            {(username !== '') ? 
+            <div className="logged-in-user">
+              <small className="text-muted user-name">{username}</small>
+              <button className="log-out" value="SignUp" onClick={this.logOut}><i className="fas fa-sign-out-alt"></i></button>
+            </div> 
+            : 
               <div className="auth-buttons nav-item">
                 <button className="sign-up-button" value="SignUp" onClick={this.openModal}>Sign Up</button>
                 <button className="sign-in-button" value="SignIn" onClick={this.openModal}>Sign In</button>
@@ -98,6 +120,7 @@ class NavBar extends React.Component {
 
 const mapStateToProps = state => ({
   cart: state.products.cartItems,
-  user: state.auth.user
+  user: state.auth.user,
+  isLoading: state.auth.loading
 })
 export default connect(mapStateToProps, { resetAuthStore, getUser })(NavBar);

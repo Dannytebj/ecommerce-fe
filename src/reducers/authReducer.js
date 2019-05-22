@@ -3,7 +3,9 @@ import  {
   SET_VALIDATION_ERRORS,
   RESET_AUTH_STORE,
   SIGN_UP_SUCCESS,
-  AUTH_SUCCESS
+  AUTH_SUCCESS,
+  LOADING,
+  FINISH_LOADING
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -14,7 +16,8 @@ const INITIAL_STATE = {
   errors: {},
   isLoading: false,
   response: {},
-  user: {}
+  user: {},
+  loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,6 +32,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, response: action.payload };
     case AUTH_SUCCESS:
       return { ...state, user: action.payload }
+    case LOADING:
+      return { ...state, loading: true };
+    case FINISH_LOADING:
+      return { ...state, loading: false };
     default:
     return state;
   }
