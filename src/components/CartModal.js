@@ -1,41 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateCartItem, deleteFromCart, getCartItems } from '../actions/productActions';
+import { updateCartItem, deleteFromCart, getCartItems, getTotalCost } from '../actions/productActions';
 
 class CartModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       quantity: 1,
-      cartItems: []
+      cartItems: [],
+      totalCost: 0
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps) {
       this.setState({
-        cartItems: nextProps.cartItems
+        cartItems: nextProps.cartItems,
+        totalCost: nextProps.totalCost
       })
     }
   }
 
   handleChange = (e, itemId) => {
     e.preventDefault();
-    this.props.updateCartItem(itemId, e.target.value)
+    this.props.updateCartItem(itemId, e.target.value);
+    this.props.getTotalCost(localStorage.getItem('cartId'))
   }
   removeItemFromCart(e, itemId) {
     e.preventDefault();
     this.props.deleteFromCart(itemId);
-    this.props.getCartItems(localStorage.getItem('cartId'))
+    this.props.getCartItems(localStorage.getItem('cartId'));
+    this.props.getTotalCost(localStorage.getItem('cartId'))
   }
   render() {
     let items;
+    let total = 0;
     if( this.props.cartItems.length > 0) {
     items = this.state.cartItems.map(item => {
       const attr = item.attributes.split(',');
       const size = attr[0];
       const color = attr[1];
-      // const price = (item.item_id)
+      total+= item.subTotal;
+
       return (
         <div className="body-content custom-row" key={item.item_id}>
           <div className="custom-col-3 item-img">
@@ -52,7 +58,7 @@ class CartModal extends Component {
             <input type="number" min={1} value={item.quantity} onChange={(e) => this.handleChange(e, item.item_id)} />
           </div>
           <div className="custom-col-2">
-            ${ (Number(item.price) * item.quantity).toFixed(2) }
+            ${ (item.subTotal).toFixed(2) }
           </div>
           <div className="custom-col-1 actions-col">
             <i className="fas fa-times-circle" onClick={(e) => this.removeItemFromCart(e, item.item_id)}></i>
@@ -88,7 +94,7 @@ class CartModal extends Component {
                     {(this.props.cartItems.length > 0) ? items : 'Empty cart :('}
                   </div>
                 </div>
-                <div className="total-cost">{(this.props.totalCost !== '') ? <h4> Total cost : ${this.props.totalCost}</h4> : '' }</div>
+                <div className="total-cost">{(this.props.totalCost !== '') ? <h4> Total cost : ${total.toFixed(2)}</h4> : '' }</div>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -104,4 +110,4 @@ class CartModal extends Component {
 const mapStateToProps = state => ({
   totalCost: state.products.totalCost
 });
-export default connect(mapStateToProps, { updateCartItem, deleteFromCart, getCartItems })(CartModal);
+export default connect(mapStateToProps, { updateCartItem, deleteFromCart, getCartItems, getTotalCost })(CartModal);

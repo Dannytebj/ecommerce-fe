@@ -158,13 +158,11 @@ export const dispatchCartId = (cartId) => dispatch => (
 
 const catchAllErrors = (error) => {
   toastr.options.preventDuplicates = true;
-  if (error) {
-      toastr.error('An error occurred');
-  } else if (error.response.data.error) {
-    toastr.error(error.response.data.error.message);
+  if (error.message === 'Network Error') {
+    toastr.error('An error occurred with your network');
   } else {
-    toastr.error(error);
-  }
+    toastr.error(error.message);
+  } 
 }
 
 

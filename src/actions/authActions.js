@@ -83,12 +83,11 @@ export const setUserData = (data, dispatch) => {
   }
 
   export const displayError = ( error ) => {
+    toastr.options.preventDuplicates = true;
     if (error.message === 'Network Error') {
       toastr.error('An error occurred with your network');
-    } else if(error.response.data.error) {
-      toastr.error(error.response.data.error.message);
     } else {
-      toastr.error('An error occurred')
+      toastr.error(error.message)
     }
   }
 

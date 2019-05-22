@@ -29,7 +29,6 @@ class ProductDetails extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { match: { params: { productId } } } = this.props;
-    console.log("I enter here! @@@");
 
     this.setState({
       product: nextProps.product,
