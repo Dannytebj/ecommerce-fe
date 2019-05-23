@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import {Elements } from 'react-stripe-elements';
-// import  CheckoutForm from './CheckoutForm';
 
 
-import { getShippingRegion, updateCustomerAddress, placeOrder } from '../actions/shippingActions';
+
+import { getShippingRegion, updateCustomerAddress, placeOrder, getOrderDetail } from '../actions/shippingActions';
 
 
 const initialState = {
@@ -26,12 +25,26 @@ class Shipping extends Component {
   }
   componentWillMount() {
     this.props.getShippingRegion();
+    const orderId = localStorage.getItem('orderId');
+    if (orderId !== '' && orderId !==null) {
+      this.props.getOrderDetail(orderId);
+    } else {
+      const cart_id = localStorage.getItem('cartId');
+      // placing default values for tax_id & shipping_id for now
+      this.props.placeOrder({ cart_id, tax_id: 1, shipping_id: 3 })
+    }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps){
       this.setState({
         shipping_regions: nextProps.shippingRegion
-      })
+      });
+      if (nextProps.user.address_1 !== null) {
+        const {address_1, address_2, city, region, postal_code, country, shipping_region_id} = nextProps.user;
+        this.setState({
+          address_1, address_2, city, region, postal_code, country, shipping_region_id
+        });
+      }
     } 
   }
 
@@ -49,9 +62,6 @@ class Shipping extends Component {
       address_1, address_2, city, region, postal_code, country, shipping_region_id
     }
     this.props.updateCustomerAddress(payload);
-    const cart_id = localStorage.getItem('cartId');
-    // placing default values for tax_id & shipping_id for now
-    this.props.placeOrder({ cart_id, tax_id: 1, shipping_id: 3 })
   }
   render() {
     const { shipping_regions } = this.state;
@@ -139,4 +149,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { getShippingRegion, updateCustomerAddress, placeOrder })(Shipping);
+export default connect(mapStateToProps, { getShippingRegion, updateCustomerAddress, placeOrder, getOrderDetail })(Shipping);

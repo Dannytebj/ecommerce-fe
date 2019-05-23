@@ -1,11 +1,13 @@
 import {
   GET_SHIPPING_REGIONS,
-  UPDATE_CUSTOMER_ADDRESS
+  UPDATE_CUSTOMER_ADDRESS,
+  CHARGE_SUCCESSFUL
 } from '../actions/types';
 
 const initialState = {
   shippingRegions: [],
-  shippingAddress: {}
+  shippingAddress: {},
+  chargeSuccess: false
 }
 
 export default function(state = initialState, action) {
@@ -17,6 +19,10 @@ export default function(state = initialState, action) {
     case UPDATE_CUSTOMER_ADDRESS:
       return {
         ...state, shippingAddress: action.payload
+      }
+    case CHARGE_SUCCESSFUL:
+      return {
+        ...state, chargeSuccess: true
       }
     default:
       return state;

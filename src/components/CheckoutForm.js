@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { chargeCard } from '../actions/shippingActions';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 
@@ -17,14 +18,26 @@ class CheckoutForm extends Component {
       this.setState({
         totalCost: nextProps.totalCost
       })
+      if (nextProps.chargeSuccess) {
+        this.props.history.push('/success');
+      } else {
+        this.props.history.push('/canceled');
+      }
     }
   }
 
-  async submit(ev) {
+  submit(ev) {
     // User clicked submit
     const name = localStorage.getItem('name')
-    let { token } = await this.props.stripe.createToken({ name });
-     await this.props.chargeCard(token.id, this.props.totalCost);
+    const totalPayable =  Math.round(this.props.totalCost);
+    this.props.stripe.createToken({ name })
+      .then(({ token }) => {
+         this.props.chargeCard(token.id, totalPayable);
+        console.log(token);
+      }).catch((error) => {
+        console.log(error);
+      })
+
 }
 
 render() {
@@ -47,5 +60,6 @@ render() {
 }
 const mapStateToProps = state => ({
   totalCost: state.products.totalCost,
+  chargeSuccess: state.shipping.chargeSuccess
 })
-export default connect(mapStateToProps, { chargeCard })(injectStripe(CheckoutForm));
+export default withRouter(connect(mapStateToProps, { chargeCard })(injectStripe(CheckoutForm)));

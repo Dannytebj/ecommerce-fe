@@ -1,7 +1,7 @@
 import axios from 'axios';
 import toastr from 'toastr';
-// import setAuthHeader from '../utils/setAuthHeader';
-import { GET_SHIPPING_REGIONS, UPDATE_CUSTOMER_ADDRESS, PLACE_ORDER } from './types';
+import { GET_SHIPPING_REGIONS, UPDATE_CUSTOMER_ADDRESS, PLACE_ORDER, GET_ORDER_DETAILS,
+  CHARGE_SUCCESSFUL } from './types';
 
 // const baseUrl = 'http://localhost:9000/api/v1';
 const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
@@ -39,22 +39,35 @@ export const placeOrder = ({ cart_id, shipping_id, tax_id }) => dispatch => {
 
 export const chargeCard = (stripeToken, amount) => dispatch => {
   const currency = 'gbp';
-  const user = localStorage.getItem('name');
+  const user = localStorage.getItem('name') || '';
   const order_id = localStorage.getItem('orderId')
   const description= `Charge for ${user}`
-  axios.post(`${baseUrl}/api/v1/stripe/charge`, { stripeToken, amount, currency, description, order_id })
+  axios.post(`${baseUrl}/stripe/charge`, { stripeToken, amount, currency, description, order_id })
     .then((res) => {
-      console.log(res);
+      dispatch({
+        type: CHARGE_SUCCESSFUL
+      })
       emptyCart(localStorage.getItem('cartId'))
     })
     .catch(error => catchAllErrors(error));
 }
 
+export const getOrderDetail = (orderId) => dispatch => {
+  axios.get(`${baseUrl}/orders/shortDetail/${orderId}`)
+    .then(({ data }) => {
+      dispatch({
+        type: GET_ORDER_DETAILS,
+        payload: data
+      })
+    }).catch(error => catchAllErrors(error));
+}
+
 export const emptyCart = cart_id => {
-  axios.delete(`${baseUrl}/api/v1/shoppingcart/empty/${cart_id}`)
+  axios.delete(`${baseUrl}/shoppingcart/empty/${cart_id}`)
     .then(() => {
       console.log('Succesfully deleted');
-      localStorage.removeItem('cartId')
+      localStorage.removeItem('cartId');
+      localStorage.removeItem('orderId');
     })
     .catch(error => catchAllErrors(error));
 }
