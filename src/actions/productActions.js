@@ -6,8 +6,8 @@ import {
   DELETE_ITEM
 } from './types';
 
-const baseUrl = 'http://localhost:9000/api/v1';
-// const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
+// const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 
 export const getDepartments = () => dispatch => {

@@ -12,8 +12,8 @@ import {
 } from './types';
 import toastr from 'toastr';
 
-const baseUrl = 'http://localhost:9000/api/v1';
-// const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
+// const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 export const authFormInputs = ({ prop, value }) => ({
   type: AUTH_FORM_INPUTS,

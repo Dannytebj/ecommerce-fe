@@ -3,8 +3,8 @@ import toastr from 'toastr';
 // import setAuthHeader from '../utils/setAuthHeader';
 import { GET_SHIPPING_REGIONS, UPDATE_CUSTOMER_ADDRESS } from './types';
 
-const baseUrl = 'http://localhost:9000/api/v1';
-// const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
+// const baseUrl = 'http://localhost:9000/api/v1';
+const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 export const getShippingRegion = () => dispatch => {
   axios.get(`${baseUrl}/shipping/regions`)
