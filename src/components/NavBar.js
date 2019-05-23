@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import CartModal from './CartModal';
 import AuthModal from './auth/AuthModal';
 import { resetAuthStore, getUser } from '../actions/authActions';
+import {
+  dispatchCartId,
+  getCartItems,
+  getTotalCost
+} from '../actions/productActions';
 import verifyToken from '../utils/checkTokenValidity';
 
 
@@ -19,6 +24,12 @@ class NavBar extends React.Component {
 
   componentWillMount() {
     const token = localStorage.getItem('jwtoken');
+    const cartId = '' || localStorage.getItem('cartId');
+    if (cartId !== '' && cartId !== undefined) {
+      this.props.dispatchCartId(cartId);
+      this.props.getCartItems(cartId);
+      this.props.getTotalCost(cartId);
+    }
     if( token !== '' && token !==undefined ) {
       if (verifyToken(token)) {
         this.props.getUser();
@@ -123,4 +134,11 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   isLoading: state.auth.loading
 })
-export default connect(mapStateToProps, { resetAuthStore, getUser })(NavBar);
+export default connect(mapStateToProps,
+  {
+    resetAuthStore,
+    getUser,
+    dispatchCartId,
+    getCartItems,
+    getTotalCost
+  })(NavBar);

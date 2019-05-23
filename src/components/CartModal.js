@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { updateCartItem, deleteFromCart, getCartItems, getTotalCost } from '../actions/productActions';
 
 class CartModal extends Component {
@@ -16,7 +17,8 @@ class CartModal extends Component {
     if(nextProps) {
       this.setState({
         cartItems: nextProps.cartItems,
-        totalCost: nextProps.totalCost
+        totalCost: nextProps.totalCost,
+        user: nextProps.user
       })
     }
   }
@@ -25,6 +27,14 @@ class CartModal extends Component {
     e.preventDefault();
     this.props.updateCartItem(itemId, e.target.value);
     this.props.getTotalCost(localStorage.getItem('cartId'))
+  }
+  checkout = () => {
+    const {user} = this.props
+    if (user !== '' && user !== null) {
+      if (this.props.cartItems.length > 0) {
+        this.props.history.push('/shipping');
+      }
+    } 
   }
   removeItemFromCart(e, itemId) {
     e.preventDefault();
@@ -35,6 +45,7 @@ class CartModal extends Component {
   render() {
     let items;
     let total = 0;
+    const {user} = this.props
     if( this.props.cartItems.length > 0) {
     items = this.state.cartItems.map(item => {
       const attr = item.attributes.split(',');
@@ -98,7 +109,9 @@ class CartModal extends Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary">Checkout</button>
+                {(user) ? <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.checkout}>Checkout</button> :
+                <button type="button" className="btn btn-primary" data-placement="right" data-container="body" data-toggle="popover" title="Login required" data-content="Kindly sign in/ signup to checkout">Checkout</button>
+              }
               </div>
             </div>
           </div>
@@ -108,6 +121,7 @@ class CartModal extends Component {
   }
 }
 const mapStateToProps = state => ({
-  totalCost: state.products.totalCost
+  totalCost: state.products.totalCost,
+  user: state.auth.user.name
 });
-export default connect(mapStateToProps, { updateCartItem, deleteFromCart, getCartItems, getTotalCost })(CartModal);
+export default withRouter(connect(mapStateToProps, { updateCartItem, deleteFromCart, getCartItems, getTotalCost })(CartModal));

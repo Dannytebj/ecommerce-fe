@@ -16,6 +16,9 @@ import setAuthHeader from './utils/setAuthHeader';
 if (localStorage.jwtoken) {
   setAuthHeader(localStorage.jwtoken);
 }
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 ReactDOM.render(
   <Provider store={store}>
     <App />

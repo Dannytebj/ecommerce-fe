@@ -6,8 +6,8 @@ import {
   DELETE_ITEM
 } from './types';
 
-// const baseUrl = 'http://localhost:9000/api/v1';
-const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
+// const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 
 export const getDepartments = () => dispatch => {
@@ -161,8 +161,8 @@ const catchAllErrors = (error) => {
   if (error.message === 'Network Error') {
     toastr.error('An error occurred with your network');
   } else {
-    const errMsg = (error.response.data !== undefined) ? error.response.data.error.message : error.message
-    toastr.error(errMsg);
+    // const errMsg = (error.response !== undefined) ? error.response.data.error.message : error;
+    toastr.error(error);
   }
 }
 

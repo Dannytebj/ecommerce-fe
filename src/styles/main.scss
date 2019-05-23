@@ -14,6 +14,17 @@ body {
   button:focus {
     outline: none;
   }
+
+  .redirect-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .shipping-buttons {
+    button {
+      margin-right: 5px;
+    }
+  }
   .list-group-item.active{
     z-index: 0;
   }

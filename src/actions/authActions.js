@@ -12,8 +12,8 @@ import {
 } from './types';
 import toastr from 'toastr';
 
-// const baseUrl = 'http://localhost:9000/api/v1';
-const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
+const baseUrl = 'http://localhost:9000/api/v1';
+// const baseUrl = 'https://yabamarketbydanny.herokuapp.com/api/v1';
 
 export const authFormInputs = ({ prop, value }) => ({
   type: AUTH_FORM_INPUTS,
@@ -87,7 +87,7 @@ export const setUserData = (data, dispatch) => {
     if (error.message === 'Network Error') {
       toastr.error('An error occurred with your network');
     } else {
-      const errMsg = (error.response.data !== undefined) ? error.response.data.error.message : error.message
+      const errMsg = (error.response !== undefined) ? error.response.data.error.message : error
       toastr.error(errMsg);
     }
   }
