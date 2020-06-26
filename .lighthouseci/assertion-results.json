@@ -1,0 +1,419 @@
+[
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.36,
+    "values": [
+      0.36
+    ],
+    "operator": ">=",
+    "auditId": "bootup-time",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Reduce JavaScript execution time",
+    "auditDocumentationLink": "https://web.dev/bootup-time"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.15,
+    "values": [
+      0.15
+    ],
+    "operator": ">=",
+    "auditId": "mainthread-work-breakdown",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Minimize main-thread work",
+    "auditDocumentationLink": "https://web.dev/mainthread-work-breakdown"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.54,
+    "values": [
+      0.54
+    ],
+    "operator": ">=",
+    "auditId": "first-contentful-paint",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "First Contentful Paint",
+    "auditDocumentationLink": "https://web.dev/first-contentful-paint"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.47,
+    "values": [
+      0.47
+    ],
+    "operator": ">=",
+    "auditId": "first-cpu-idle",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "First CPU Idle",
+    "auditDocumentationLink": "https://web.dev/first-cpu-idle"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.48,
+    "values": [
+      0.48
+    ],
+    "operator": ">=",
+    "auditId": "first-meaningful-paint",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "First Meaningful Paint",
+    "auditDocumentationLink": "https://web.dev/first-meaningful-paint"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.57,
+    "values": [
+      0.57
+    ],
+    "operator": ">=",
+    "auditId": "interactive",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Time to Interactive",
+    "auditDocumentationLink": "https://web.dev/interactive"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.18,
+    "values": [
+      0.18
+    ],
+    "operator": ">=",
+    "auditId": "speed-index",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Speed Index",
+    "auditDocumentationLink": "https://web.dev/speed-index"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.01,
+    "values": [
+      0.01
+    ],
+    "operator": ">=",
+    "auditId": "max-potential-fid",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Max Potential First Input Delay",
+    "auditDocumentationLink": "https://developers.google.com/web/updates/2018/05/first-input-delay"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0.12,
+    "values": [
+      0.12
+    ],
+    "operator": ">=",
+    "auditId": "uses-rel-preload",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Preload key requests",
+    "auditDocumentationLink": "https://web.dev/uses-rel-preload"
+  },
+  {
+    "name": "maxLength",
+    "expected": 0,
+    "actual": 3,
+    "values": [
+      3
+    ],
+    "operator": "<=",
+    "auditId": "uses-rel-preconnect",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Preconnect to required origins",
+    "auditDocumentationLink": "https://web.dev/uses-rel-preconnect"
+  },
+  {
+    "name": "maxLength",
+    "expected": 0,
+    "actual": 4,
+    "values": [
+      4
+    ],
+    "operator": "<=",
+    "auditId": "render-blocking-resources",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Eliminate render-blocking resources",
+    "auditDocumentationLink": "https://web.dev/render-blocking-resources"
+  },
+  {
+    "name": "maxLength",
+    "expected": 0,
+    "actual": 1,
+    "values": [
+      1
+    ],
+    "operator": "<=",
+    "auditId": "uses-long-cache-ttl",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Uses efficient cache policy on static assets",
+    "auditDocumentationLink": "https://web.dev/uses-long-cache-ttl"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "is-on-https",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not use HTTPS",
+    "auditDocumentationLink": "https://web.dev/is-on-https"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "redirects-http",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not redirect HTTP traffic to HTTPS",
+    "auditDocumentationLink": "https://web.dev/redirects-http"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "uses-http2",
+    "level": "warn",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not use HTTP/2 for all of its resources",
+    "auditDocumentationLink": "https://web.dev/uses-http2"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "font-display",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Ensure text remains visible during webfont load",
+    "auditDocumentationLink": "https://web.dev/font-display"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "installable-manifest",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Web app manifest does not meet the installability requirements",
+    "auditDocumentationLink": "https://web.dev/installable-manifest"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "meta-description",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Document does not have a meta description",
+    "auditDocumentationLink": "https://web.dev/meta-description"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "meta-viewport",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "`[user-scalable=\"no\"]` is used in the `<meta name=\"viewport\">` element or the `[maximum-scale]` attribute is less than 5.",
+    "auditDocumentationLink": "https://web.dev/meta-viewport/"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "no-vulnerable-libraries",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Includes front-end JavaScript libraries with known security vulnerabilities",
+    "auditDocumentationLink": "https://web.dev/no-vulnerable-libraries"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "offline-start-url",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "`start_url` does not respond with a 200 when offline",
+    "auditDocumentationLink": "https://web.dev/offline-start-url"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "service-worker",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not register a service worker that controls page and `start_url`",
+    "auditDocumentationLink": "https://web.dev/service-worker"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "splash-screen",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Is not configured for a custom splash screen",
+    "auditDocumentationLink": "https://web.dev/splash-screen"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "themed-omnibox",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not set a theme color for the address bar.",
+    "auditDocumentationLink": "https://web.dev/themed-omnibox"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "uses-passive-event-listeners",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Does not use passive listeners to improve scrolling performance",
+    "auditDocumentationLink": "https://web.dev/uses-passive-event-listeners"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "works-offline",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "Current page does not respond with a 200 when offline",
+    "auditDocumentationLink": "https://web.dev/works-offline"
+  },
+  {
+    "name": "minScore",
+    "expected": 1,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "auditId": "bypass",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1",
+    "auditTitle": "The page does not contain a heading, skip link, or landmark region",
+    "auditDocumentationLink": "https://web.dev/bypass/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.75,
+    "actual": 0.44,
+    "values": [
+      0.44
+    ],
+    "operator": ">=",
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.75,
+    "actual": 0.43,
+    "values": [
+      0.43
+    ],
+    "operator": ">=",
+    "auditProperty": "accessibility",
+    "auditId": "categories",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.71,
+    "values": [
+      0.71
+    ],
+    "operator": ">=",
+    "auditProperty": "best-practices",
+    "auditId": "categories",
+    "level": "error",
+    "url": "http://view.ceros.com/shannon-hill/financial-wellness-2/p/1"
+  }
+]
