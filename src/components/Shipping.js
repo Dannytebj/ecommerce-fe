@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getShippingRegion, updateCustomerAddress } from '../actions/shippingActions';
+import { Link } from 'react-router-dom';
+
+
+
+import { getShippingRegion, updateCustomerAddress, placeOrder, getOrderDetail } from '../actions/shippingActions';
 
 
 const initialState = {
@@ -21,20 +25,27 @@ class Shipping extends Component {
   }
   componentWillMount() {
     this.props.getShippingRegion();
+    const orderId = localStorage.getItem('orderId');
+    if (orderId !== '' && orderId !==null) {
+      this.props.getOrderDetail(orderId);
+    } else {
+      const cart_id = localStorage.getItem('cartId');
+      // placing default values for tax_id & shipping_id for now
+      this.props.placeOrder({ cart_id, tax_id: 1, shipping_id: 3 })
+    }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps){
-      console.log(nextProps, "KKIOOK");
       this.setState({
         shipping_regions: nextProps.shippingRegion
-      })
+      });
+      if (nextProps.user.address_1 !== null) {
+        const {address_1, address_2, city, region, postal_code, country, shipping_region_id} = nextProps.user;
+        this.setState({
+          address_1, address_2, city, region, postal_code, country, shipping_region_id
+        });
+      }
     } 
-  if (nextProps.user) {
-    const {address_1, address_2, city, region, postal_code, country, shipping_region_id} = nextProps.user;
-    this.setState({
-      address_1, address_2, city, region, postal_code, country, shipping_region_id
-    });
-  }
   }
 
   handleChange = (event) => {
@@ -125,9 +136,10 @@ class Shipping extends Component {
           </div>
           <div className="shipping-buttons">
             <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Update Address</button>
-            {(address_1 !== '' && address_1 !== null) ? <button type="button" id="checkout-button-sku_F7LpUpzJrtJpsR" role="link" className="btn btn-primary" >Place Order</button> : '' }
+            {(address_1 !== '' && address_1 !== null) ? <Link to="/checkout" className="btn btn-primary" >Checkout</Link> : '' }
           </div>
         </form>
+  
       </div>
     )
   }
@@ -137,4 +149,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, { getShippingRegion, updateCustomerAddress })(Shipping);
+export default connect(mapStateToProps, { getShippingRegion, updateCustomerAddress, placeOrder, getOrderDetail })(Shipping);
